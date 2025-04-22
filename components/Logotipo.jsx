@@ -14,9 +14,10 @@ const Logotipo = () => {
 
 const styles = StyleSheet.create({
     tituloEven: {
-        fontSize: 40,
+        fontSize: '5em',
         fontWeight: 'bold',
         color: '#CD5C5C',
+        textAlign: 'center',
     },
     tituloTec: {
         color: '#4682B4',

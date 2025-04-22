@@ -9,7 +9,7 @@ const Botao = ({ titulo, acaoClique, estaCarregando }) => {
             activeOpacity={0.7}
             style={estilos.botao}
         >
-            <Text>{ titulo }</Text>
+            <Text style={estilos.texto}>{ titulo }</Text>
         </TouchableOpacity>
     )
 }
@@ -25,6 +25,9 @@ const estilos = StyleSheet.create({
         marginVertical: 5,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    texto: {
+        
     }
 });
 
