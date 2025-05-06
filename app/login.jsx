@@ -30,6 +30,12 @@ const Login = () => {
                 estaCarregando={false}
             />
 
+            <Botao 
+                titulo="Criar conta"
+                acaoClique={() => router.push('/cadastro')}
+                estaCarregando={false}
+            />
+
         </View>
     );
 }
