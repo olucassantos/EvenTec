@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 import Logotipo from '../components/Logotipo';
 import CampoTexto from '../components/CampoTexto';
 import Botao from '../components/Botao';
 import { router } from 'expo-router';
+
+// Importa a função do firebase para fazer o cadastro do usuário
+import { cadastrarUsuario } from '../servicos/autenticacao.js';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const Cadastro = () => {
     const [nome, setNome] = useState('');
@@ -11,6 +15,32 @@ const Cadastro = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [estaCarregando, setEstaCarregando] = useState(false);
+
+    const realizarCadastro = async () => {
+        // Verifica se os campos estão preenchidos
+        if (!nome || !email || !senha || !telefone) {
+            Alert.alert("Erro", "Preencha todos os campos!");
+            window.alert("Preencha todos os campos!");
+            return;
+        }
+
+        // Desativa o botão de cadastro enquanto o cadastro está sendo processado
+        setEstaCarregando(true);
+        
+        try {
+            // Cria a função de cadastro do usuário no firebase
+            const credencialUsuario = await createUserWithEmailAndPassword(auth, email, senha);
+            const usuario = credencialUsuario.user;
+
+            // Verifica se o usuário foi criado com sucesso
+            if (usuario) {
+                // Salva os outro dados
+                await setDoc();
+            }
+        } catch (erro) {
+
+        }
+    };
 
     return (
         <View style={estilos.telaCadastro}>
@@ -48,7 +78,7 @@ const Cadastro = () => {
 
             <Botao 
                 titulo="Cadastrar"
-                acaoClique={() => router.push('/login')}
+                acaoClique={realizarCadastro}
                 estaCarregando={estaCarregando}
             />
 
